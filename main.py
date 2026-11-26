@@ -21,6 +21,10 @@ TEXT = (
 
 
 def main() -> None:
+    # The gate accepts 1 to 1000 Unicode code points, not only whitespace.
+    # Refuse to write an out-of-range text rather than submit an invalid one.
+    if not 1 <= len(TEXT) <= 1000 or not TEXT.strip():
+        raise SystemExit(f"entry text out of range: {len(TEXT)} characters")
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8", newline="") as f:
         f.write(TEXT)
